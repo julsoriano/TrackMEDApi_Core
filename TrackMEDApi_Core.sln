@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.202
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrackMEDApi", "TrackMEDApi\TrackMEDApi.csproj", "{28D3019C-C24D-42C7-ABD1-717569C4C4CC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{28D3019C-C24D-42C7-ABD1-717569C4C4CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28D3019C-C24D-42C7-ABD1-717569C4C4CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28D3019C-C24D-42C7-ABD1-717569C4C4CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28D3019C-C24D-42C7-ABD1-717569C4C4CC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D1587E25-25DD-4F96-A7D5-378AB9E45CE9}
+	EndGlobalSection
+EndGlobal
