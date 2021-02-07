@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using System.Linq;
+using MongoDB.Driver;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -63,7 +64,8 @@ namespace TrackMEDApi.Controllers
             return await _entityRepository.GetOneAsyncByDescription(Description);
         }
 
-        public async Task<bool> Put([FromBody]T entity)
+        public async Task<ReplaceOneResult> Put([FromBody]T entity)
+        // public async Task<bool> Put([FromBody]T entity)
         {
             return await _entityRepository.SaveOneAsync(entity);
         }

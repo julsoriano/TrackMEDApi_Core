@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using TrackMEDApi.Models;
 using System;
 using System.Linq;
+using MongoDB.Driver;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -97,7 +98,8 @@ namespace TrackMEDApi.Controllers
 
         // PUT api/EquipmentActivitys/5
         [HttpPut("{id}")]
-        public async Task<bool> Put([FromBody]EquipmentActivity entity)
+        public async Task<ReplaceOneResult> Put([FromBody]EquipmentActivity entity)
+        // public async Task<bool> Put([FromBody]EquipmentActivity entity)
         {
             return await _entityRepository.SaveOneAsync(entity);
         }

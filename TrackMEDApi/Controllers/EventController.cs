@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TrackMEDApi.Models;
 using Microsoft.AspNetCore.Authorization;
+using MongoDB.Driver;
 
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -58,7 +59,8 @@ namespace TrackMEDApi.Controllers
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public async Task<bool> Put([FromBody]Event entity)
+        public async Task<ReplaceOneResult> Put([FromBody]Event entity)
+        // public async Task<bool> Put([FromBody]Event entity)
         {
             return await _entityRepository.SaveOneAsync(entity);
         }

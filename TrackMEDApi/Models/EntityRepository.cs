@@ -155,10 +155,10 @@ namespace TrackMEDApi
             return GetOneAsync(entity.Id) != null;
         }
 
-        public async Task<bool> SaveOneAsync(T entity)
+        public async Task<ReplaceOneResult> SaveOneAsync(T entity)
+        // public async Task<bool> SaveOneAsync(T entity)
         {
-            //var query = Builders<T>.Filter.Eq(e => e.Id, entity.Id);
-            var query = Builders<T>.Filter.Eq("Id", entity.Id);
+            var query = Builders<T>.Filter.Eq(e => e.Id, entity.Id); // var query = Builders<T>.Filter.Eq("Id", entity.Id);
 
             /*
              To replace the entire document except for the _id field, pass an entirely new document as the second argument to the ReplaceOneAsync method. 
@@ -166,8 +166,9 @@ namespace TrackMEDApi
              If you do include the _id field, it must be the same value as the existing value.             
              See: https://docs.mongodb.com/getting-started/csharp/update/
              */
-            ReplaceOneResult result = await m_Entities.ReplaceOneAsync(query, entity);
-            return result.ModifiedCount > 0;
+            return await m_Entities.ReplaceOneAsync(e => e.Id.Equals(entity.Id), entity, new ReplaceOptions { IsUpsert = true });
+            // ReplaceOneResult result = await m_Entities.ReplaceOneAsync(query, entity);
+            // return result.ModifiedCount > 0;
         }
 
         public async Task<bool> RemoveOneAsync(string id)

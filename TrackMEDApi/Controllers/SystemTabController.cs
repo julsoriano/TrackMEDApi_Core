@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -107,7 +108,8 @@ namespace TrackMEDApi.Controllers
 
         // PUT api/systemtabs/5
         [HttpPut]
-        public async Task<bool> Put([FromBody]SystemTab entity)
+        public async Task<ReplaceOneResult> Put([FromBody]SystemTab entity)
+        // public async Task<bool> Put([FromBody]SystemTab entity)
         {
             return await _entityRepository.SaveOneAsync(entity);
         }

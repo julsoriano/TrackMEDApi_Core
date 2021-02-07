@@ -196,16 +196,7 @@ namespace TrackMEDApi
         public void ConfigureServices(IServiceCollection services)
         {
             // https://docs.microsoft.com/en-us/aspnet/core/security/cors
-            // Also: Add service and create Policy with options, See https://www.codeproject.com/Articles/1151842/Using-MongoDB-NET-Driver-with-NET-Core-WebAPI
-            /*
-            services.AddCors(options => {
-                options.AddPolicy("CorsPolicy",
-                  builder => builder.AllowAnyOrigin()
-                                    .AllowAnyMethod()
-                                    .AllowAnyHeader()
-                                    .AllowCredentials());
-            });
-            */
+                     
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowAllOrigins",
@@ -213,21 +204,19 @@ namespace TrackMEDApi
                     {
                         builder.AllowAnyOrigin();
                     });
-
-            });
-            /*
+            
                 options.AddPolicy("AllowAllMethods",
                     builder =>
                     {
-                        builder.WithOrigins("http://example.com")
-                                .AllowAnyMethod();
+                        //builder.WithOrigins("http://example.com")
+                        //        .AllowAnyMethod();
+                        builder.AllowAnyMethod();
                     });
-
+            
                 options.AddPolicy("AllowAllHeaders",
                     builder =>
                     {
-                        builder.WithOrigins("http://example.com")
-                                .AllowAnyHeader();
+                        builder.AllowAnyHeader();
                     });
                 // END06
 
@@ -235,8 +224,7 @@ namespace TrackMEDApi
                 options.AddPolicy("ExposeResponseHeaders",
                     builder =>
                     {
-                        builder.WithOrigins("http://example.com")
-                                .WithExposedHeaders("x-custom-header");
+                        builder.WithExposedHeaders("x-custom-header");
                     });
                 // END07
 
@@ -244,8 +232,7 @@ namespace TrackMEDApi
                 options.AddPolicy("AllowCredentials",
                     builder =>
                     {
-                        builder.WithOrigins("http://example.com")
-                                .AllowCredentials();
+                        builder.DisallowCredentials();
                     });
                 // END08
 
@@ -253,8 +240,7 @@ namespace TrackMEDApi
                 options.AddPolicy("SetPreflightExpiration",
                     builder =>
                     {
-                        builder.WithOrigins("http://example.com")
-                                .SetPreflightMaxAge(TimeSpan.FromSeconds(2520));
+                        builder.SetPreflightMaxAge(TimeSpan.FromSeconds(2520));
                     });
                 // END09
 
@@ -262,14 +248,14 @@ namespace TrackMEDApi
                 options.AddPolicy("AllowSubdomain",
                     builder =>
                     {
-                        builder.WithOrigins("https://*.example.com")
-                            .SetIsOriginAllowedToAllowWildcardSubdomains();
+                        builder.SetIsOriginAllowedToAllowWildcardSubdomains();
                     });
                 // END11
+            
             });
-            */
+            
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            services.AddRazorPages();
 
             // Add our Config object so it can be injected
             services.Configure<Settings>(Configuration.GetSection("MongoSettings"));
@@ -291,15 +277,14 @@ namespace TrackMEDApi
                 app.UseHsts();
             }
 
-            // https://docs.microsoft.com/en-us/aspnet/core/security/cors
-            app.UseCors("CorsPolicy");
-
             /* Migrating from .Net Core 2.2 to 3.0, See https://docs.microsoft.com/en-us/aspnet/core/migration/22-to-30?view=aspnetcore-3.0&tabs=visual-studio
-                 or See: https://www.evernote.com/shard/s102/nl/11219721/b69c73f9-4dbe-4688-baef-1513c808e046
-             
-               Replaces useMVC
+                 or See: https://www.evernote.com/shard/s102/nl/11219721/b69c73f9-4dbe-4688-baef-1513c808e046                         
             */
-            app.UseRouting();     
+            app.UseRouting();   // Replaces useMVC
+
+            // For most apps, calls to UseAuthentication, UseAuthorization, and UseCors must appear between the calls to UseRouting and UseEndpoints to be effective.
+            // See https://docs.microsoft.com/en-us/aspnet/core/migration/22-to-30?view=aspnetcore-2.2&tabs=visual-studio#break
+            // app.UseCors("default");
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

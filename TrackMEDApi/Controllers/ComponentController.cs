@@ -9,6 +9,7 @@ using TrackMEDApi.Models;
 using TrackMEDApi.Services;
 using System.Linq;
 using Microsoft.CodeAnalysis;
+using MongoDB.Driver;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -136,7 +137,8 @@ namespace TrackMEDApi.Controllers
 
         // PUT api/components/5
         [HttpPut]
-        public async Task<bool> PutOneAsync([FromBody]Component entity)
+        public async Task<ReplaceOneResult> PutOneAsync([FromBody]Component entity)
+        // public async Task<bool> PutOneAsync([FromBody]Component entity)
         {
             // nullify to prevent non-synchronization
             entity.Description = null;

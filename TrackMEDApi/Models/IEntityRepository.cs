@@ -20,7 +20,8 @@ namespace TrackMEDApi
         Task<T> GetOneAsyncByDescription(string Description);
         Task<T> GetOneAsyncByFieldID(string fieldID, string Id);
         Task<bool> AddOneAsync(T entity);
-        Task<bool> SaveOneAsync(T entity);
+        Task<ReplaceOneResult> SaveOneAsync(T entity);
+        // Task<bool> SaveOneAsync(T entity);
         Task<bool> RemoveOneAsync(string id);
         void DropDatabase();
         /*
