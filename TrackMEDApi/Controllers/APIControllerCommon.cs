@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
-using System.Linq;
 using MongoDB.Driver;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -29,13 +28,12 @@ namespace TrackMEDApi.Controllers
         [HttpGet]
         public async Task<IEnumerable<T>> GetAllAsync()
         {
-            return await _entityRepository.GetAllAsync();
-            /*
+            // return await _entityRepository.GetAllAsync();
+            
             var allRecords = await _entityRepository.GetAllAsync();
-            var items = allRecords
-                        .OrderBy(x => x.Desc);
-            return items;
-            */
+            //var items = allRecords
+            //             .OrderBy(x => x.Desc);
+            return allRecords;       
         }
 
         // GET api/values/5
@@ -76,5 +74,7 @@ namespace TrackMEDApi.Controllers
         {
             return await _entityRepository.RemoveOneAsync(id);
         }
+
+        // public abstract List<BsonDocument> GetNoOfComps();
     }
 }

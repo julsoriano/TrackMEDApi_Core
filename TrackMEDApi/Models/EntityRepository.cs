@@ -4,15 +4,14 @@ using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TrackMEDApi.Models;
 
 namespace TrackMEDApi
 {
     public class EntityRepository<T>: IEntityRepository<T> where T : IEntity
     {
-        private readonly IMongoClient m_Client;
-        private readonly IMongoDatabase _database;
-        private IMongoCollection<T> m_Entities;
+        public readonly IMongoClient m_Client;
+        public readonly IMongoDatabase _database;
+        public IMongoCollection<T> m_Entities;
         private readonly Settings _settings;
 
         /*
@@ -20,13 +19,12 @@ namespace TrackMEDApi
             See Configuration Using Options and Configuration Objects 
                 https://docs.asp.net/en/latest/fundamentals/configuration.html#options-config-objects
             Or Strongly-Typed Configuration Settings in ASP.NET Code 
-            https://weblog.west-wind.com/posts/2016/may/23/strongly-typed-configuration-settings-in-aspnet-core#HookinguptheConfiguration
+                https://weblog.west-wind.com/posts/2016/may/23/strongly-typed-configuration-settings-in-aspnet-core#HookinguptheConfiguration
         */
         public EntityRepository(IOptions<Settings> optionsAccessor)
         {
             _settings = optionsAccessor.Value; // reads appsettings.json
-            // "mongoconnection": "mongodb://localhost:27017",
-            // m_Client = new MongoClient("mongodb://trackmeduser:matthew24v14@ds033307.mlab.com:33307/trackmed");
+            
             // http://www.codeproject.com/Articles/1077319/Csharp-MongoDB-Polymorphic-Collections-with-Generi
             m_Client = new MongoClient(_settings.MongoConnection);
             _database = m_Client.GetDatabase(_settings.Database);
@@ -175,7 +173,7 @@ namespace TrackMEDApi
         {
             var query = Builders<T>.Filter.Eq("Id", id);
             var result = await m_Entities.DeleteOneAsync(query);
-            return GetOneAsync(id) == null;           // or: return result.IsAcknowledged;       
+            return GetOneAsync(id) == null;  // or: return result.IsAcknowledged;       
         }
 
         public void DropDatabase()

@@ -21,7 +21,7 @@
             "launchBrowser": true,
             // Following is optional: System defaults to these ports if not specified
             // "applicationUrl": "https://localhost:5001;http://localhost:5000", 
-            "launchUrl": "api/status",
+            "launchUrl": "api/owner/GetNoOfComps", // "launchUrl": "api/status api/owner/GetNoOfComps
             "environmentVariables": {
                 "ASPNETCORE_ENVIRONMENT": "Development"
             }

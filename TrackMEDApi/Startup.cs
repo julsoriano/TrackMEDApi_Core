@@ -254,7 +254,6 @@ namespace TrackMEDApi
             
             });
             
-
             services.AddRazorPages();
 
             // Add our Config object so it can be injected
@@ -284,20 +283,46 @@ namespace TrackMEDApi
 
             // For most apps, calls to UseAuthentication, UseAuthorization, and UseCors must appear between the calls to UseRouting and UseEndpoints to be effective.
             // See https://docs.microsoft.com/en-us/aspnet/core/migration/22-to-30?view=aspnetcore-2.2&tabs=visual-studio#break
+            app.UseCors("AllowAllOrigins");
             // app.UseCors("default");
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Status}/{action=Index}/{id?}");
-                    /* Note: 
-                     * There is no action in StatusController named 'Index'. 
-                     * Routing probably looks at the signature rather than the action name
-                          so this defaults to GetAllAsync which has the specified signature.
-                     * Works in conjunction with launchsettings.json. THIS JSON MUST BE SPECIFIED
-                    */
+                    pattern: "{controller=Owner}/{action=index}/{id?}");
+                // pattern: "{controller=Status}/{action=Index}/{id?}");
+                /* Note: 
+                 * There is no action in StatusController named 'Index'. 
+                 * Routing probably looks at the signature rather than the action name
+                      so this defaults to GetAllAsync which has the specified signature.
+                 * Works in conjunction with launchsettings.json. THIS JSON MUST BE SPECIFIED
+                 * 
+                 * The convenience method MapDefaultControllerRoute:
+                    C#: endpoints.MapDefaultControllerRoute();
+
+                    Replaces:
+                    C#: endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+
+                    Important!!!
+
+                    Routing is configured using the UseRouting and UseEndpoints middleware. To use controllers:
+
+                        Call MapControllers inside UseEndpoints to map attribute routed controllers.
+                        Call MapControllerRoute or MapAreaControllerRoute, to map both conventionally routed controllers and attribute routed controllers.
+                */
+
+
             });
-            
+            /*
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(name: "blog",
+                            pattern: "blog/{*article}",
+                            defaults: new { controller = "Blog", action = "Article" });
+                endpoints.MapControllerRoute(name: "default",
+                            pattern: "{controller=Home}/{action=Index}/{id?}");
+            });             
+             */
         }
     }
 }

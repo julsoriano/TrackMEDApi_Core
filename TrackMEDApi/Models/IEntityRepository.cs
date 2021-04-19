@@ -14,29 +14,16 @@ namespace TrackMEDApi
     public interface IEntityRepository<T> where T : IEntity
     {
         Task<IEnumerable<T>> GetAllAsync();
-        Task<IEnumerable<T>> GetSelectedAsync(string tableID, string Id);
         //Task<IEnumerable<T>> GetManyAsync(string[] ids);
         Task<T> GetOneAsync(string id);
         Task<T> GetOneAsyncByDescription(string Description);
         Task<T> GetOneAsyncByFieldID(string fieldID, string Id);
+        Task<IEnumerable<T>> GetSelectedAsync(string tableID, string Id);
         Task<bool> AddOneAsync(T entity);
         Task<ReplaceOneResult> SaveOneAsync(T entity);
         // Task<bool> SaveOneAsync(T entity);
         Task<bool> RemoveOneAsync(string id);
         void DropDatabase();
-        /*
-
-        Task<T> GetOneAsync(T context);
-        
-        Task<T> GetManyAsync(IEnumerable<T> contexts);
-        Task<T> GetManyAsync(IEnumerable<string> ids);
-        Task<T> SaveOneAsync(T Context);
-        Task<T> SaveManyAsync(IEnumerable<T> contexts);
-        Task<bool> RemoveOneAsync(T context);
-        Task<bool> RemoveOneAsync(string id);
-        Task<bool> RemoveManyAsync(IEnumerable<T> contexts);
-        Task<bool> RemoveManyAsync(IEnumerable<string> ids);
-        */
 
         /* Original
         //IEnumerable<T> All();
